@@ -53,6 +53,6 @@ endif()
 
 
 # Credits
-Discord: rh.dev for figuring out how 1.6.0.0 really works this way
-Cocos2dx-2
+Discord: rh.dev for figuring out how 1.6.0.0 really works this way<br>
+Cocos2dx-2<br>
 Axmol
