@@ -7,6 +7,7 @@ Add this to your project's CMakeFile before it calls `ax_setup_app_props`
 set(AX_ENABLE_EXT_COCOSTUDIO OFF CACHE BOOL "Build extension cocostudio" FORCE)
 
 # Clone cocostudio-1.6.0.0
+include(FetchContent)
 set(COCOSTUDIO_1_6_DIR "cocostudio-1.6.0.0")
 FetchContent_Declare(
     cocostudio
