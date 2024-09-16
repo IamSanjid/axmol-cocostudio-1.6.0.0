@@ -1,7 +1,7 @@
 /****************************************************************************
 Copyright (c) 2015-2017 Chukong Technologies Inc.
 
-https://axmolengine.github.io/
+https://axmol.dev/
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -182,8 +182,8 @@ void BoneNode::addToBoneList(BoneNode* bone)
                     _rootSkeleton->_subBonesOrderDirty = true;
                 }
                 else
-                    AXLOG("already has a bone named %s in skeleton %s", bonename.data(),
-                          _rootSkeleton->getName().data());
+                    AXLOGD("already has a bone named {} in skeleton {}", bonename,
+                          _rootSkeleton->getName());
             }
         }
         else

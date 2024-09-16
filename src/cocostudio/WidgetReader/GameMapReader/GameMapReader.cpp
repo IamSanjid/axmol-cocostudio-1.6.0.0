@@ -1,7 +1,7 @@
 /****************************************************************************
  Copyright (c) 2014 cocos2d-x.org
 
- https://axmolengine.github.io/
+ https://axmol.dev/
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -35,7 +35,7 @@
 
 #include "flatbuffers/flatbuffers.h"
 
-USING_NS_AX;
+using namespace ax;
 using namespace flatbuffers;
 
 namespace cocostudio
@@ -218,7 +218,7 @@ Node* GameMapReader::createNodeWithFlatBuffers(const flatbuffers::Table* gameMap
             Node* node = Node::create();
             setPropsWithFlatBuffers(node, (Table*)gameMapOptions);
             auto label = Label::create();
-            label->setString(StringUtils::format("Some error of gid are in TMX Layer '%s'", layerName.c_str()));
+            label->setString(fmt::format("Some error of gid are in TMX Layer '{}'", layerName));
             node->setScale(1.0f);
             node->addChild(label);
             return node;

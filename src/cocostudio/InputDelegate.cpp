@@ -1,7 +1,7 @@
 /****************************************************************************
 Copyright (c) 2013-2017 Chukong Technologies Inc.
 
-https://axmolengine.github.io/
+https://axmol.dev/
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -30,7 +30,7 @@ THE SOFTWARE.
 #include "base/EventListenerKeyboard.h"
 #include "base/EventDispatcher.h"
 
-USING_NS_AX;
+using namespace ax;
 
 namespace cocostudio
 {
@@ -54,27 +54,6 @@ InputDelegate::~InputDelegate(void)
     dispatcher->removeEventListener(_accelerometerListener);
     Device::setAccelerometerEnabled(false);
 }
-
-void InputDelegate::didAccelerate(ax::Acceleration* /*accelerationValue*/) {}
-
-bool InputDelegate::ccTouchBegan(ax::Touch* /*touch*/, ax::Event* /*event*/)
-{
-    return false;
-}
-
-void InputDelegate::ccTouchMoved(ax::Touch* /*touch*/, ax::Event* /*event*/) {}
-
-void InputDelegate::ccTouchEnded(ax::Touch* /*touch*/, ax::Event* /*event*/) {}
-
-void InputDelegate::ccTouchCancelled(ax::Touch* /*touch*/, ax::Event* /*event*/) {}
-
-void InputDelegate::ccTouchesBegan(ax::__Set* /*touches*/, ax::Event* /*event*/) {}
-
-void InputDelegate::ccTouchesMoved(ax::__Set* /*touches*/, ax::Event* /*event*/) {}
-
-void InputDelegate::ccTouchesEnded(ax::__Set* /*touches*/, ax::Event* /*event*/) {}
-
-void InputDelegate::ccTouchesCancelled(ax::__Set* /*touches*/, ax::Event* /*event*/) {}
 
 void InputDelegate::onAcceleration(ax::Acceleration* /*acc*/, ax::Event* /*event*/) {}
 

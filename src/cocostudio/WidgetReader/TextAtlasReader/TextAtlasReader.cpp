@@ -11,7 +11,7 @@
 
 #include "flatbuffers/flatbuffers.h"
 
-USING_NS_AX;
+using namespace ax;
 using namespace ui;
 using namespace flatbuffers;
 
@@ -122,7 +122,7 @@ void TextAtlasReader::setPropsFromJsonDictionary(Widget* widget, const rapidjson
         break;
     }
     case 1:
-        AXLOG("Wrong res type of LabelAtlas!");
+        AXLOGD("Wrong res type of LabelAtlas!");
         break;
     default:
         break;
@@ -254,7 +254,7 @@ void TextAtlasReader::setPropsWithFlatBuffers(ax::Node* node, const flatbuffers:
     }
 
     case 1:
-        AXLOG("Wrong res type of LabelAtlas!");
+        AXLOGD("Wrong res type of LabelAtlas!");
         break;
 
     default:

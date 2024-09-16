@@ -1,7 +1,7 @@
 /****************************************************************************
 Copyright (c) 2013-2017 Chukong Technologies Inc.
 
-https://axmolengine.github.io/
+https://axmol.dev/
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -37,7 +37,7 @@ THE SOFTWARE.
 
 #include "CocoLoader.h"
 
-USING_NS_AX;
+using namespace ax;
 
 static const char* VERSION     = "version";
 static const float VERSION_2_0 = 2.0f;
@@ -237,7 +237,7 @@ float DataReaderHelper::getPositionReadScale()
     return s_PositionReadScale;
 }
 
-void DataReaderHelper::purge()
+void DataReaderHelper::destroyInstance()
 {
     _configFileList.clear();
     AX_SAFE_RELEASE_NULL(_dataReaderHelper);
@@ -287,7 +287,7 @@ void DataReaderHelper::addDataFromFile(std::string_view filePath)
         basefilePath = filePath.substr(0, pos + 1);
     }
 
-    std::string fileExtension = ax::FileUtils::getInstance()->getFileExtension(filePath);
+    std::string fileExtension = ax::FileUtils::getPathExtension(filePath);
 
     // Read content from file
     std::string fullPath = FileUtils::getInstance()->fullPathForFilename(filePath);
@@ -390,7 +390,7 @@ void DataReaderHelper::addDataFromFileAsync(std::string_view imagePath,
     data->imagePath = imagePath;
     data->plistPath = plistPath;
 
-    std::string fileExtension = ax::FileUtils::getInstance()->getFileExtension(filePath);
+    std::string fileExtension = ax::FileUtils::getPathExtension(filePath);
     std::string fullPath      = FileUtils::getInstance()->fullPathForFilename(filePath);
 
     bool isbinaryfilesrc = fileExtension == ".csb";
@@ -1131,7 +1131,7 @@ void DataReaderHelper::addDataFromJsonCache(std::string_view fileContent, DataIn
     json.ParseStream<0>(stream);
     if (json.HasParseError())
     {
-        AXLOG("GetParseError %d\n", json.GetParseError());
+        AXLOGD("GetParseError {}\n",  static_cast<int>(json.GetParseError()));
     }
 
     dataInfo->contentScale = DICTOOL->getFloatValue_json(json, CONTENT_SCALE, 1.0f);
@@ -1208,7 +1208,7 @@ void DataReaderHelper::addDataFromJsonCache(std::string_view fileContent, DataIn
                 i);  // json[CONFIG_FILE_PATH][i].IsNull() ? nullptr : json[CONFIG_FILE_PATH][i].GetString();
             if (path == nullptr)
             {
-                AXLOG("load CONFIG_FILE_PATH error.");
+                AXLOGD("load CONFIG_FILE_PATH error.");
                 return;
             }
 
@@ -1753,7 +1753,7 @@ void DataReaderHelper::addDataFromBinaryCache(const char* fileContent, DataInfo*
                         const char* path = pConfigFilePath[ii].GetValue(&tCocoLoader);
                         if (path == nullptr)
                         {
-                            AXLOG("load CONFIG_FILE_PATH error.");
+                            AXLOGD("load CONFIG_FILE_PATH error.");
                             return;
                         }
 

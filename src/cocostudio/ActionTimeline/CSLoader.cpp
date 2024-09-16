@@ -4,7 +4,7 @@
  Copyright (c) 2019-2020 simdsoft, @HALX99
  Copyright (c) 2019-present Axmol Engine contributors (see AUTHORS.md).
 
- https://axmolengine.github.io/
+ https://axmol.dev/
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -103,7 +103,8 @@ using namespace cocostudio::timeline;
 using namespace flatbuffers;
 /**/
 
-NS_AX_BEGIN
+namespace ax
+{
 
 static const char* ClassName_Node        = "Node";
 static const char* ClassName_SubGraph    = "SubGraph";
@@ -246,8 +247,6 @@ CSLoader::CSLoader()
 
     CREATE_CLASS_NODE_READER_INFO(TextFieldExReader);
 }
-
-void CSLoader::purge() {}
 
 void CSLoader::init()
 {
@@ -451,7 +450,7 @@ Node* CSLoader::loadNodeWithContent(std::string_view content)
     doc.Parse<0>(content.data(), content.length());
     if (doc.HasParseError())
     {
-        AXLOG("GetParseError %d\n", doc.GetParseError());
+        AXLOGD("GetParseError {}\n",  static_cast<int>(doc.GetParseError()));
     }
 
     // cocos2dx version mono editor is based on
@@ -569,7 +568,7 @@ Node* CSLoader::loadNode(const rapidjson::Value& json)
     }
     else
     {
-        AXLOG("Not supported NodeType: %s", nodeType.c_str());
+        AXLOGD("Not supported NodeType: {}", nodeType);
     }
 
     return node;
@@ -691,7 +690,7 @@ Node* CSLoader::loadSprite(const rapidjson::Value& json)
         if (!sprite)
         {
             sprite = Sprite::create();
-            AXLOG("filePath is empty. Create a sprite with no texture");
+            AXLOGD("filePath is empty. Create a sprite with no texture");
         }
     }
     else
@@ -801,14 +800,14 @@ Node* CSLoader::loadWidget(const rapidjson::Value& json)
             customJsonDict.Parse<0>(customProperty);
             if (customJsonDict.HasParseError())
             {
-                AXLOG("GetParseError %d\n", customJsonDict.GetParseError());
+                AXLOGD("GetParseError {}\n",  static_cast<int>(customJsonDict.GetParseError()));
             }
 
             widgetPropertiesReader.setPropsForAllCustomWidgetFromJsonDictionary(classname, widget, customJsonDict);
         }
         else
         {
-            AXLOG("Widget or WidgetReader doesn't exists!!!  Please check your protocol buffers file.");
+            AXLOGD("Widget or WidgetReader doesn't exists!!!  Please check your protocol buffers file.");
         }
     }
 
@@ -937,8 +936,8 @@ Node* CSLoader::createNode(const Data& data, const ccNodeLoadCallback& callback)
                 }
             });
 #    if _AX_DEBUG > 0
-            auto prompt = StringUtils::format(
-                    "%s%s%s%s%s%s%s%s%s%s", "The reader build id of your Cocos exported file(", csBuildId->c_str(),
+            std::string prompt = fmt::format(
+                    "{}{}{}{}{}{}{}{}{}{}", "The reader build id of your Cocos exported file(", csBuildId->c_str(),
                     ") and the reader build id in your axmol(", loader->_csBuildID.c_str(),
                     ") are not match.\n", "Please get the correct reader(build id ", csBuildId->c_str(), ")from ",
                     "https://github.com/axmolengine/axmol", " and replace it in your axmol");
@@ -949,7 +948,7 @@ Node* CSLoader::createNode(const Data& data, const ccNodeLoadCallback& callback)
         // decode plist
         auto textures   = csparsebinary->textures();
         int textureSize = csparsebinary->textures()->size();
-        AXLOG("textureSize = %d", textureSize);
+        AXLOGD("textureSize = {}", textureSize);
         for (int i = 0; i < textureSize; ++i)
         {
             std::string_view plist = textures->Get(i)->c_str();
@@ -991,12 +990,12 @@ inline void CSLoader::reconstructNestNode(ax::Node* node)
         if (_callbackHandlers.empty())
         {
             _rootNode = nullptr;
-            AXLOG("Call back handler container has been clear.");
+            AXLOGD("Call back handler container has been clear.");
         }
         else
         {
             _rootNode = _callbackHandlers.back();
-            AXLOG("after pop back _rootNode name = %s", _rootNode->getName().data());
+            AXLOGD("after pop back _rootNode name = {}", _rootNode->getName());
         }
     }
 }
@@ -1016,7 +1015,7 @@ Node* CSLoader::nodeWithFlatBuffersFile(std::string_view fileName, const ccNodeL
 
     if (buf.isNull())
     {
-        AXLOG("CSLoader::nodeWithFlatBuffersFile - failed read file: %s", fileName.data());
+        AXLOGD("CSLoader::nodeWithFlatBuffersFile - failed read file: {}", fileName);
         AX_ASSERT(false);
         return nullptr;
     }
@@ -1057,9 +1056,9 @@ Node* CSLoader::nodeWithFlatBuffersFile(std::string_view fileName, const ccNodeL
             }
         });
 #    if _AX_DEBUG > 0
-        auto prompt = StringUtils::format(
+        auto prompt = fmt::format(
                 "%s%s%s%s%s%s%s%s%s%s", "The reader build id of your Cocos exported file(", csBuildId->c_str(),
-                ") and the reader build id in your axmol(", _csBuildID.c_str(), ") are not match.\n",
+                ") and the reader build id in your axmol(", _csBuildID, ") are not match.\n",
                 "Please get the correct reader(build id ", csBuildId->c_str(), ")from ",
                 "https://github.com/axmolengine/axmol", " and replace it in your axmol");
         AXASSERT(readerVersion >= writterVersion, prompt.c_str());
@@ -1067,8 +1066,8 @@ Node* CSLoader::nodeWithFlatBuffersFile(std::string_view fileName, const ccNodeL
         if (readerVersion < writterVersion)
         {
             auto exceptionMsg =
-                StringUtils::format("error: The csloader version not match, require version is:%s, but %s provided!",
-                                    csBuildId->c_str(), _csBuildID.c_str());
+                fmt::format("error: The csloader version not match, require version is:{}, but {} provided!",
+                                    csBuildId->c_str(), _csBuildID);
             throw std::logic_error(exceptionMsg.c_str());
             return nullptr;
         }
@@ -1169,17 +1168,17 @@ Node* CSLoader::nodeWithFlatBuffers(const flatbuffers::NodeTree* nodetree, const
             }
             else
             {
-                auto exceptionMsg = StringUtils::format(
-                    R"(error: Missing custom reader class name:%s, please config at your project fiile xxx.xsxproj like follow:
+                auto exceptionMsg = fmt::format(
+                    R"(error: Missing custom reader class name:{}, please config at your project fiile xxx.xsxproj like follow:
     <Project>
       <publish-opts>
          <custom-readers>
-           <item>%s</item>
+           <item>{}</item>
          </custom-readers>
       </publish-opts>
     </Project>
 )",
-                    readername.c_str(), readername.c_str());
+                    readername, readername);
                 throw std::logic_error(exceptionMsg.c_str());
             }
 
@@ -1296,7 +1295,7 @@ bool CSLoader::bindCallback(std::string_view callbackName,
         }
     }
 
-    AXLOG("callBackName %s cannot be found", callbackName.data());
+    AXLOGD("callBackName {} cannot be found", callbackName);
 
     return false;
 }
@@ -1444,7 +1443,7 @@ Node* CSLoader::createNodeWithFlatBuffersForSimulator(std::string_view filename)
     // decode plist
     auto textures   = csparsebinary->textures();
     int textureSize = csparsebinary->textures()->size();
-    //    AXLOG("textureSize = %d", textureSize);
+    //    AXLOGD("textureSize = {}", textureSize);
     for (int i = 0; i < textureSize; ++i)
     {
         std::string_view plist = textures->Get(i)->c_str();
@@ -1581,4 +1580,4 @@ Node* CSLoader::nodeWithFlatBuffersForSimulator(const flatbuffers::NodeTree* nod
     return node;
 }
 
-NS_AX_END
+}

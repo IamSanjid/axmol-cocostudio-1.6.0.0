@@ -1,7 +1,7 @@
 /****************************************************************************
 Copyright (c) 2013-2017 Chukong Technologies Inc.
 
-https://axmolengine.github.io/
+https://axmol.dev/
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -75,12 +75,6 @@ public:
     void removeDisplay(int index);
 
     const ax::Vector<DecorativeDisplay*>& getDecorativeDisplayList() const;
-
-    /*
-     * @deprecated, please use changeDisplayWithIndex and changeDisplayWithName
-     */
-    AX_DEPRECATED_ATTRIBUTE void changeDisplayByIndex(int index, bool force);
-    AX_DEPRECATED_ATTRIBUTE void changeDisplayByName(std::string_view name, bool force);
 
     /**
      * Change display by index. You can just use this method to change display in the display list.

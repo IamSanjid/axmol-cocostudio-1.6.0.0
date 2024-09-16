@@ -1,7 +1,7 @@
 /****************************************************************************
 Copyright (c) 2013-2017 Chukong Technologies Inc.
 
-https://axmolengine.github.io/
+https://axmol.dev/
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -31,9 +31,10 @@ THE SOFTWARE.
 #include <map>
 #include <vector>
 
-NS_AX_BEGIN
+namespace ax
+{
 class SpriteFrame;
-NS_AX_END
+}
 
 namespace cocostudio
 {
@@ -45,15 +46,10 @@ namespace cocostudio
 class CCS_DLL SpriteFrameCacheHelper
 {
 public:
-    /** @deprecated Use getInstance() instead */
-    AX_DEPRECATED_ATTRIBUTE static SpriteFrameCacheHelper* sharedSpriteFrameCacheHelper()
-    {
-        return SpriteFrameCacheHelper::getInstance();
-    }
 
     static SpriteFrameCacheHelper* getInstance();
 
-    static void purge();
+    static void destroyInstance();
 
 public:
     /**

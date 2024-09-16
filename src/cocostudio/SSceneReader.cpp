@@ -2,7 +2,7 @@
 Copyright (c) 2013-2017 Chukong Technologies Inc.
 Copyright (c) 2019-present Axmol Engine contributors (see AUTHORS.md).
 
-https://axmolengine.github.io/
+https://axmol.dev/
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@ THE SOFTWARE.
 #include "base/Utils.h"
 #include "platform/FileUtils.h"
 
-USING_NS_AX;
+using namespace ax;
 using namespace ui;
 
 namespace cocostudio
@@ -56,7 +56,7 @@ ax::Node* SceneReader::createNodeWithSceneFile(
     std::string_view fileName,
     AttachComponentType attachComponent /*= AttachComponentType::EMPTY_NODE*/)
 {
-    std::string fileExtension = ax::FileUtils::getInstance()->getFileExtension(fileName);
+    std::string fileExtension = ax::FileUtils::getPathExtension(fileName);
     if (fileExtension == ".json")
     {
         _node = nullptr;

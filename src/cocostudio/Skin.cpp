@@ -2,7 +2,7 @@
 Copyright (c) 2013-2017 Chukong Technologies Inc.
 Copyright (c) 2019-present Axmol Engine contributors (see AUTHORS.md).
 
-https://axmolengine.github.io/
+https://axmol.dev/
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -32,7 +32,7 @@ THE SOFTWARE.
 #include "TransformHelp.h"
 #include "Armature.h"
 
-USING_NS_AX;
+using namespace ax;
 
 namespace cocostudio
 {
@@ -94,7 +94,7 @@ bool Skin::initWithSpriteFrameName(std::string_view spriteFrameName)
     }
     else
     {
-        AXLOG("Can't find CCSpriteFrame with %s. Please check your .plist file", spriteFrameName.data());
+        AXLOGD("Can't find CCSpriteFrame with {}. Please check your .plist file", spriteFrameName);
         ret = false;
     }
 

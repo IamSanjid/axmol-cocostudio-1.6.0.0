@@ -1,7 +1,7 @@
 /****************************************************************************
  Copyright (c) 2014 cocos2d-x.org
 
- https://axmolengine.github.io/
+ https://axmol.dev/
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -37,12 +37,13 @@ class NodeTree;
 class ResourceData;  // please match in CSParseBinary.pb
 }  // namespace protocolbuffers
 
-NS_AX_BEGIN
+namespace ax
+{
 namespace ui
 {
 class Widget;
 }
-NS_AX_END  // namespace ax
+}  // namespace ax
 
 namespace cocostudio
 {

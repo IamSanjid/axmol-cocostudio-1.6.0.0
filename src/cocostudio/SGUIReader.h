@@ -1,7 +1,7 @@
 /****************************************************************************
 Copyright (c) 2013-2017 Chukong Technologies Inc.
 
-https://axmolengine.github.io/
+https://axmol.dev/
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -56,8 +56,6 @@ typedef void (ax::Object::*SEL_ParseEvent)(std::string_view, ax::Object*, const 
 class CCS_DLL GUIReader : public ax::Object
 {
 public:
-    AX_DEPRECATED_ATTRIBUTE static GUIReader* shareReader() { return GUIReader::getInstance(); };
-    AX_DEPRECATED_ATTRIBUTE static void purgeGUIReader() { GUIReader::destroyInstance(); };
 
     static GUIReader* getInstance();
     static void destroyInstance();

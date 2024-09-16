@@ -3,7 +3,7 @@
  Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
  Copyright (c) simdsoft.com, @HALX99.
 
- https://axmolengine.github.io/
+ https://axmol.dev/
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -40,7 +40,7 @@
 #include "renderer/backend/ProgramManager.h"
 #include "renderer/backend/ProgramState.h"
 
-USING_NS_AX;
+using namespace ax;
 using namespace flatbuffers;
 
 namespace cocostudio
@@ -61,11 +61,6 @@ SpriteReader* SpriteReader::getInstance()
     }
 
     return _instanceSpriteReader;
-}
-
-void SpriteReader::purge()
-{
-    AX_SAFE_DELETE(_instanceSpriteReader);
 }
 
 void SpriteReader::destroyInstance()

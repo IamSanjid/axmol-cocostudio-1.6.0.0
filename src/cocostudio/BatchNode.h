@@ -1,7 +1,7 @@
 /****************************************************************************
 Copyright (c) 2013-2017 Chukong Technologies Inc.
 
-https://axmolengine.github.io/
+https://axmol.dev/
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -29,11 +29,12 @@ THE SOFTWARE.
 #include "ArmatureDefine.h"
 #include "CocosStudioExport.h"
 
-NS_AX_BEGIN
+namespace ax
+{
 
 class GroupCommand;
 
-NS_AX_END
+}
 
 namespace cocostudio
 {

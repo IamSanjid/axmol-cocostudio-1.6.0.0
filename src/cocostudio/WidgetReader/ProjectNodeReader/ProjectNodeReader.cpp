@@ -1,7 +1,7 @@
 /****************************************************************************
  Copyright (c) 2014 cocos2d-x.org
 
- https://axmolengine.github.io/
+ https://axmol.dev/
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 
 #include "flatbuffers/flatbuffers.h"
 
-USING_NS_AX;
+using namespace ax;
 using namespace flatbuffers;
 
 namespace cocostudio
@@ -48,11 +48,6 @@ ProjectNodeReader* ProjectNodeReader::getInstance()
     }
 
     return _instanceProjectNodeReader;
-}
-
-void ProjectNodeReader::purge()
-{
-    AX_SAFE_DELETE(_instanceProjectNodeReader);
 }
 
 void ProjectNodeReader::destroyInstance()

@@ -1,7 +1,7 @@
 /****************************************************************************
 Copyright (c) 2013-2017 Chukong Technologies Inc.
 
-https://axmolengine.github.io/
+https://axmol.dev/
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -30,7 +30,7 @@ THE SOFTWARE.
 #include "base/Utils.h"
 #include "base/EventCustom.h"
 
-USING_NS_AX;
+using namespace ax;
 
 namespace cocostudio
 {
@@ -75,7 +75,7 @@ void TriggerMng::destroyInstance()
 
 void TriggerMng::parse(const rapidjson::Value& root)
 {
-    AXLOG("%s", triggerMngVersion());
+    AXLOGD("{}", triggerMngVersion());
     int count = DICTOOL->getArrayCount_json(root, "Triggers");
 
 #if AX_ENABLE_SCRIPT_BINDING
@@ -110,7 +110,7 @@ void TriggerMng::parse(const rapidjson::Value& root)
 
 void TriggerMng::parse(cocostudio::CocoLoader* pCocoLoader, cocostudio::stExpCocoNode* pCocoNode)
 {
-    AXLOG("%s", triggerMngVersion());
+    AXLOGD("{}", triggerMngVersion());
 
     int count                     = pCocoNode[13].GetChildNum();
     stExpCocoNode* pTriggersArray = pCocoNode[13].GetChildArray(pCocoLoader);

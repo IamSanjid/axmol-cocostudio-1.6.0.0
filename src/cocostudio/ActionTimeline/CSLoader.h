@@ -1,7 +1,7 @@
 /****************************************************************************
  Copyright (c) 2013 cocos2d-x.org
 
- https://axmolengine.github.io/
+ https://axmol.dev/
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -63,7 +63,8 @@ class ActionTimelineNode;
 }  // namespace timeline
 }  // namespace cocostudio
 
-NS_AX_BEGIN
+namespace ax
+{
 
 typedef std::function<void(Object*)> ccNodeLoadCallback;
 
@@ -74,8 +75,6 @@ public:
     static void destroyInstance();
 
     CSLoader();
-    /** @deprecated Use method destroyInstance() instead */
-    AX_DEPRECATED_ATTRIBUTE void purge();
 
     void init();
 
@@ -175,6 +174,6 @@ protected:
     std::string _csBuildID;
 };
 
-NS_AX_END
+}
 
 #endif /* defined(__cocos2d_libs__CSLoader__) */

@@ -1,7 +1,7 @@
 /****************************************************************************
 Copyright (c) 2013-2017 Chukong Technologies Inc.
 
-https://axmolengine.github.io/
+https://axmol.dev/
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -30,7 +30,7 @@ THE SOFTWARE.
 #include "2d/ParticleSystemQuad.h"
 #include "2d/SpriteFrameCache.h"
 
-USING_NS_AX;
+using namespace ax;
 
 namespace cocostudio
 {
@@ -196,7 +196,7 @@ bool ComRender::serialize(void* r)
             }
             else if (strcmp(className, "CCArmature") == 0)
             {
-                std::string fileExtension = FileUtils::getInstance()->getFileExtension(filePath);
+                std::string fileExtension = FileUtils::getPathExtension(filePath);
                 if (fileExtension == ".json" || fileExtension == ".exportjson")
                 {
                     rapidjson::Document doc;
@@ -301,7 +301,7 @@ bool ComRender::serialize(void* r)
             }
             else if (strcmp(className, "GUIComponent") == 0)
             {
-                std::string fileExtension = FileUtils::getInstance()->getFileExtension(filePath);
+                std::string fileExtension = FileUtils::getPathExtension(filePath);
                 if (fileExtension == ".json" || fileExtension == ".exportjson")
                 {
                     ax::ui::Widget* widget = GUIReader::getInstance()->widgetFromJsonFile(filePath.c_str());

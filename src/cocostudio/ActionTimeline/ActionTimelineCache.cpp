@@ -4,7 +4,7 @@ Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 Copyright (c) 2019-2020 simdsoft, @HALX99
 Copyright (c) 2019-present Axmol Engine contributors (see AUTHORS.md).
 
- https://axmolengine.github.io/
+ https://axmol.dev/
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -43,7 +43,7 @@ THE SOFTWARE.
 
 #include <fstream>
 
-USING_NS_AX;
+using namespace ax;
 using namespace flatbuffers;
 
 namespace cocostudio
@@ -100,11 +100,6 @@ ActionTimelineCache* ActionTimelineCache::getInstance()
 void ActionTimelineCache::destroyInstance()
 {
     AX_SAFE_DELETE(_sharedActionCache);
-}
-
-void ActionTimelineCache::purge()
-{
-    _animationActions.clear();
 }
 
 void ActionTimelineCache::init()
@@ -194,7 +189,7 @@ ActionTimeline* ActionTimelineCache::loadAnimationActionWithContent(std::string_
     doc.Parse<0>(content.data(), content.length());
     if (doc.HasParseError())
     {
-        AXLOG("GetParseError %d\n", doc.GetParseError());
+        AXLOGD("GetParseError {}\n",  static_cast<int>(doc.GetParseError()));
     }
 
     const rapidjson::Value& json = DICTOOL->getSubDictionary_json(doc, ACTION);
@@ -599,7 +594,7 @@ Timeline* ActionTimelineCache::loadTimelineWithFlatBuffers(const flatbuffers::Ti
 
             if (!frame)
             {
-                AXLOG("frame is invalid.");
+                AXLOGD("frame is invalid.");
                 continue;
             }
             timeline->addFrame(frame);

@@ -1,7 +1,7 @@
 /****************************************************************************
 Copyright (c) 2013-2017 Chukong Technologies Inc.
 
-https://axmolengine.github.io/
+https://axmol.dev/
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -46,15 +46,6 @@ struct RelativeData
 class CCS_DLL ArmatureDataManager : public ax::Object
 {
 public:
-    /** @deprecated Use getInstance() instead */
-    AX_DEPRECATED_ATTRIBUTE static ArmatureDataManager* sharedArmatureDataManager()
-    {
-        return ArmatureDataManager::getInstance();
-    }
-
-    /** @deprecated Use destroyInstance() instead */
-    AX_DEPRECATED_ATTRIBUTE static void purge() { ArmatureDataManager::destroyInstance(); };
-
     static ArmatureDataManager* getInstance();
     static void destroyInstance();
 

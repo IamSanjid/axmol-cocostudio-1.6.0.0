@@ -1,7 +1,7 @@
 /****************************************************************************
 Copyright (c) 2013-2017 Chukong Technologies Inc.
 
-https://axmolengine.github.io/
+https://axmol.dev/
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -93,9 +93,6 @@ public:
     void addDisplay(ax::Node* display, int index);
 
     void removeDisplay(int index);
-
-    AX_DEPRECATED_ATTRIBUTE void changeDisplayByIndex(int index, bool force);
-    AX_DEPRECATED_ATTRIBUTE void changeDisplayByName(std::string_view name, bool force);
 
     void changeDisplayWithIndex(int index, bool force);
     void changeDisplayWithName(std::string_view name, bool force);
@@ -189,12 +186,6 @@ public:
      */
     virtual void setIgnoreMovementBoneData(bool ignore) { _ignoreMovementBoneData = ignore; }
     virtual bool isIgnoreMovementBoneData() const { return _ignoreMovementBoneData; }
-
-    /*
-     * This function is deprecated, please use isIgnoreMovementBoneData()
-     * @lua NA
-     */
-    AX_DEPRECATED_ATTRIBUTE virtual bool getIgnoreMovementBoneData() const { return isIgnoreMovementBoneData(); }
 
     /*
      * Set blend function

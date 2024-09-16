@@ -1,7 +1,7 @@
 /****************************************************************************
 Copyright (c) 2013-2017 Chukong Technologies Inc.
 
-https://axmolengine.github.io/
+https://axmol.dev/
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -24,7 +24,7 @@ THE SOFTWARE.
 #include "TriggerObj.h"
 #include "base/EventListenerCustom.h"
 
-USING_NS_AX;
+using namespace ax;
 
 namespace cocostudio
 {
@@ -157,7 +157,7 @@ void TriggerObj::serialize(const rapidjson::Value& val)
             dynamic_cast<BaseTriggerCondition*>(ObjectFactory::getInstance()->createObject(classname));
         if (con == nullptr)
         {
-            AXLOG("class %s can not be implemented!", classname);
+            AXLOGD("class {} can not be implemented!", classname);
             AXASSERT(con != nullptr, "con can't be nullptr!");
         }
 
@@ -180,7 +180,7 @@ void TriggerObj::serialize(const rapidjson::Value& val)
             dynamic_cast<BaseTriggerAction*>(ObjectFactory::getInstance()->createObject(classname));
         if (act == nullptr)
         {
-            AXLOG("class %s can not be implemented!", classname);
+            AXLOGD("class {} can not be implemented!", classname);
             AXASSERT(act != nullptr, "act can't be nullptr!");
         }
         act->serialize(subDict);
@@ -198,10 +198,7 @@ void TriggerObj::serialize(const rapidjson::Value& val)
             continue;
         }
 
-        char buf[10];
-        sprintf(buf, "%d", event);
-        std::string custom_event_name(buf);
-
+        std::string custom_event_name = fmt::to_string(event);
         EventListenerCustom* listener = EventListenerCustom::create(custom_event_name, [this](EventCustom* /*evt*/) {
             if (detect())
             {
@@ -290,9 +287,8 @@ void TriggerObj::serialize(cocostudio::CocoLoader* pCocoLoader, cocostudio::stEx
                 {
                     continue;
                 }
-                char buf[10];
-                sprintf(buf, "%d", event);
-                std::string custom_event_name(buf);
+
+                std::string custom_event_name = fmt::to_string(event);
 
                 EventListenerCustom* listener =
                     EventListenerCustom::create(custom_event_name, [this](EventCustom* /*evt*/) {

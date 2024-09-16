@@ -1,7 +1,7 @@
 /****************************************************************************
 Copyright (c) 2013-2017 Chukong Technologies Inc.
 
-https://axmolengine.github.io/
+https://axmol.dev/
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -28,7 +28,7 @@ THE SOFTWARE.
 #include "ArmatureDefine.h"
 #include "Datas.h"
 
-USING_NS_AX;
+using namespace ax;
 
 namespace cocostudio
 {
@@ -117,16 +117,6 @@ void ArmatureAnimation::stop()
     ProcessBase::stop();
 }
 
-void ArmatureAnimation::setAnimationScale(float animationScale)
-{
-    setSpeedScale(animationScale);
-}
-
-float ArmatureAnimation::getAnimationScale() const
-{
-    return getSpeedScale();
-}
-
 void ArmatureAnimation::setSpeedScale(float speedScale)
 {
     if (speedScale == _speedScale)
@@ -160,7 +150,7 @@ void ArmatureAnimation::play(std::string_view animationName, int durationTo, int
 {
     if (animationName.empty())
     {
-        AXLOG("_animationData can not be null");
+        AXLOGD("_animationData can not be null");
         return;
     }
     //    AXASSERT(_animationData, "_animationData can not be null");
@@ -168,7 +158,7 @@ void ArmatureAnimation::play(std::string_view animationName, int durationTo, int
     _movementData = _animationData->getMovement(animationName);
     if (nullptr == _movementData)
     {
-        AXLOG("_movementData can not be null");
+        AXLOGD("_movementData can not be null");
         return;
     }
     //    AXASSERT(_movementData, "_movementData can not be null");
@@ -246,11 +236,6 @@ void ArmatureAnimation::play(std::string_view animationName, int durationTo, int
     _armature->update(0);
 }
 
-void ArmatureAnimation::playByIndex(int animationIndex, int durationTo, int loop)
-{
-    playWithIndex(animationIndex, durationTo, loop);
-}
-
 void ArmatureAnimation::playWithIndex(int animationIndex, int durationTo, int loop)
 {
     std::vector<std::string>& movName = _animationData->movementNames;
@@ -296,7 +281,7 @@ void ArmatureAnimation::gotoAndPlay(int frameIndex)
 {
     if (!_movementData || frameIndex < 0 || frameIndex >= _movementData->duration)
     {
-        AXLOG("Please ensure you have played a movement, and the frameIndex is in the range.");
+        AXLOGD("Please ensure you have played a movement, and the frameIndex is in the range.");
         return;
     }
 
@@ -454,18 +439,6 @@ std::string ArmatureAnimation::getCurrentMovementID() const
         return "";
     }
     return _movementID;
-}
-
-void ArmatureAnimation::setMovementEventCallFunc(Object* target, SEL_MovementEventCallFunc callFunc)
-{
-    _movementEventTarget   = target;
-    _movementEventCallFunc = callFunc;
-}
-
-void ArmatureAnimation::setFrameEventCallFunc(Object* target, SEL_FrameEventCallFunc callFunc)
-{
-    _frameEventTarget   = target;
-    _frameEventCallFunc = callFunc;
 }
 
 void ArmatureAnimation::setMovementEventCallFunc(

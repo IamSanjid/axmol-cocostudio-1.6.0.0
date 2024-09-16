@@ -1,7 +1,7 @@
 /****************************************************************************
 Copyright (c) 2013-2017 Chukong Technologies Inc.
 
-https://axmolengine.github.io/
+https://axmol.dev/
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@ THE SOFTWARE.
 #include "DataReaderHelper.h"
 #include "SpriteFrameCacheHelper.h"
 
-USING_NS_AX;
+using namespace ax;
 
 namespace cocostudio
 {
@@ -50,8 +50,8 @@ ArmatureDataManager* ArmatureDataManager::getInstance()
 
 void ArmatureDataManager::destroyInstance()
 {
-    SpriteFrameCacheHelper::purge();
-    DataReaderHelper::purge();
+    SpriteFrameCacheHelper::destroyInstance();
+    DataReaderHelper::destroyInstance();
     AX_SAFE_RELEASE_NULL(s_sharedArmatureDataManager);
 }
 

@@ -1,7 +1,7 @@
 /****************************************************************************
 Copyright (c) 2013 cocos2d-x.org
 
-https://axmolengine.github.io/
+https://axmol.dev/
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,7 @@ THE SOFTWARE.
 
 #include "cocostudio/ComExtensionData.h"
 
-USING_NS_AX;
+using namespace ax;
 
 NS_TIMELINE_BEGIN
 
@@ -95,7 +95,7 @@ void ActionTimeline::play(std::string name, bool loop)
 {
     if (_animationInfos.find(name) == _animationInfos.end())
     {
-        AXLOG("Can't find animation info for %s", name.c_str());
+        AXLOGD("Can't find animation info for {}", name);
         return;
     }
 
@@ -163,7 +163,7 @@ void ActionTimeline::setCurrentFrame(int frameIndex)
     }
     else
     {
-        AXLOG("frame index is not between start frame and end frame");
+        AXLOGD("frame index is not between start frame and end frame");
     }
 }
 
@@ -298,7 +298,7 @@ void ActionTimeline::addAnimationInfo(const AnimationInfo& animationInfo)
 {
     if (_animationInfos.find(animationInfo.name) != _animationInfos.end())
     {
-        AXLOG("Animation (%s) already exists.", animationInfo.name.c_str());
+        AXLOGD("Animation ({}) already exists.", animationInfo.name);
         return;
     }
 
@@ -311,7 +311,7 @@ void ActionTimeline::removeAnimationInfo(std::string animationName)
     auto clipIter = _animationInfos.find(animationName);
     if (clipIter == _animationInfos.end())
     {
-        AXLOG("AnimationInfo (%s) not exists.", animationName.c_str());
+        AXLOGD("AnimationInfo ({}) not exists.", animationName);
         return;
     }
 
@@ -334,7 +334,7 @@ void ActionTimeline::setAnimationEndCallFunc(const std::string animationName, st
     auto clipIter = _animationInfos.find(animationName);
     if (clipIter == _animationInfos.end())
     {
-        AXLOG("AnimationInfo (%s) not exists.", animationName.c_str());
+        AXLOGD("AnimationInfo ({}) not exists.", animationName);
         return;
     }
     clipIter->second.clipEndCallBack = func;
