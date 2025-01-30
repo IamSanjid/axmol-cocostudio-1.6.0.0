@@ -1,5 +1,5 @@
-# cocostudio 1.4~1.6 or 0.1.4~0.1.6
-Cocos Studio Legacy versions 1.4.0.0~1.6.0.0 or 0.1.4~0.1.6 support for axmol
+# cocostudio 1.4\~1.6 or 0.1.4\~0.1.6
+Cocos Studio Legacy versions 1.4.0.0\~1.6.0.0 or 0.1.4\~0.1.6 support for axmol
 
 # How to use
 Add this to your project's CMakeFile before it calls `ax_setup_app_props`
