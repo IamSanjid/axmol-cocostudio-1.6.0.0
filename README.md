@@ -17,7 +17,7 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(cocostudio)
 
-# let this cocstudio use spine
+# let this cocostudio use spine
 if(AX_ENABLE_EXT_SPINE) # this check can be removed if you're using custom spine
     set(SPINE_DIR "${_AX_ROOT}/extensions/spine")
     target_compile_definitions(cocostudio PRIVATE AX_ENABLE_EXT_SPINE=1)
@@ -32,7 +32,7 @@ if(AX_ENABLE_EXT_SPINE) # this check can be removed if you're using custom spine
     endif()
 endif()
 
-# let cocstudio use dragon bones
+# let cocostudio use dragon bones
 if(AX_ENABLE_EXT_DRAGONBONES)
     set(DRAGONBONES_DIR "${_AX_ROOT}/extensions/DragonBones")
     target_compile_definitions(cocostudio PRIVATE AX_ENABLE_EXT_DRAGONBONES=1)
